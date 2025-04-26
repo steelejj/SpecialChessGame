@@ -1,0 +1,3 @@
+# standard gitignore for .idea and python project
+.idea
+.venv
