@@ -1,0 +1,7 @@
+[tool.ruff]
+# match your previous strict settings
+line-length = 88
+select = ["E", "F", "W", "C90", "ANN", "UP", "SIMPLIFY"]
+extend-select = ["I"]
+exclude = ["build", "dist", ".venv", "__pycache__", "*.pyc"]
+per-file-ignores = { "__init__.py" = ["F401"] }

@@ -23,11 +23,6 @@ class Coordinate:
 
     @classmethod
     def from_indexes(cls, file_index: int, rank_index: int, board_size: int = 8):
-        """
-        Create a Coordinate from zero-based indexes:
-          - file_index: 0 → 'A', 1 → 'B', …
-          - rank_index: 0 → top row (rank=board_size), ..., board_size-1 → bottom row (rank=1)
-        """
         files = get_available_files(board_size)
         if not (0 <= file_index < board_size):
             raise ValueError(f"file_index: {file_index} must be between 0 and {board_size-1}")
