@@ -3,7 +3,10 @@ FROM python:3.12-slim
 # set working dir
 WORKDIR /app
 
-# copy only your source tree into /app/src
+# copy to avoid reinstalling libs on code changes
+COPY python/requirements.txt /app/requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
 COPY python/src /app/src
 
 # make sure Python will look in /app/src
