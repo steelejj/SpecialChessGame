@@ -2,7 +2,7 @@ import copy
 from functools import cached_property
 from logging import Logger
 from typing import List, Dict
-from game.pieces import ChessPiece, Coordinate
+from chess.pieces import ChessPiece, Coordinate
 
 
 class ChessBoard:

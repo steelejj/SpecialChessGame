@@ -1,6 +1,7 @@
 import logging
-from game.board import ChessBoard
-from game.pieces import Rook, Bishop, Coordinate, PieceColor
+
+from chess.game import Game
+from chess.pieces import Rook, Bishop, Coordinate, PieceColor
 from logging import getLogger, Logger
 
 logging.basicConfig(
@@ -9,18 +10,11 @@ logging.basicConfig(
     force=True,
 )
 
-def play_game(logger: Logger):
-    logger.info("starting game")
-
-    pieces = [
-        Rook(color=PieceColor.BLACK, coordinate=Coordinate("A", 2)),
-        Bishop(color=PieceColor.WHITE, coordinate=Coordinate("G", 8))
-    ]
-
-    board = ChessBoard(pieces=pieces, board_size=8, logger=logger)
-
-    board.render()
-
 if __name__ == "__main__":
     game_logger = getLogger("ChessGame")
-    play_game(game_logger)
+    rook = Rook(coordinate=Coordinate("H", 1), color=PieceColor.WHITE)
+    bishop = Bishop(coordinate=Coordinate("c", 3), color=PieceColor.BLACK)
+    number_of_turns = 15
+
+    game = Game(rook=rook, bishop=bishop, logger=game_logger)
+    game.play_game(number_of_turns=number_of_turns)
