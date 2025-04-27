@@ -1,7 +1,26 @@
-[tool.ruff]
-# match your previous strict settings
+# enforce an 88-char line length
 line-length = 88
-select = ["E", "F", "W", "C90", "ANN", "UP", "SIMPLIFY"]
+
+# the error-codes you want Ruff to check for
+select = ["F", "E", "C90", "I", "N", "D", "ASYNC", "S", "A", "COM", "PIE", "PYI", "SLF", "TID", "PERF", "RUF"]
+
+# extra “isort”-style import checks
 extend-select = ["I"]
+
+# nothing to ignore by default
+ignore = [
+    "D107", # missing-type-self
+    "PLR0913", # Too many arguments to function call
+    "D104", # Missing docstring in public package
+    "D100", # Missing docstring in public module
+    "S101", # use of assert detected
+    "D203", # no blank line before class
+    "D212",
+    "E501", # line length
+]
+
+# dirs and file-patterns to skip
 exclude = ["build", "dist", ".venv", "__pycache__", "*.pyc"]
+
+# allow unused imports in __init__.py for namespace packages
 per-file-ignores = { "__init__.py" = ["F401"] }

@@ -1,13 +1,13 @@
 import copy
 from functools import cached_property
 from logging import Logger
-from typing import List, Dict
-from chess.pieces import ChessPiece, Coordinate
+
+from chess.pieces import ChessPiece
 
 
 class ChessBoard:
-    def __init__(self, pieces: List[ChessPiece], board_size: int, logger: Logger) -> None:
-        self.pieces: List[ChessPiece] = pieces
+    def __init__(self, pieces: list[ChessPiece], board_size: int, logger: Logger) -> None:
+        self.pieces: list[ChessPiece] = pieces
         self._board_size = board_size
         self.logger = logger
         self.validate()
@@ -16,14 +16,14 @@ class ChessBoard:
         coordinates = [piece.coordinate for piece in self.pieces]
 
         if len(set(coordinates)) != len(coordinates):
-            raise ValueError(f"input coordinates must be unique, make sure all pieces start at different positions")
+            raise ValueError("input coordinates must be unique, make sure all pieces start at different positions")
 
 
     @cached_property
-    def _empty_board(self) -> List[List[str]]:
+    def _empty_board(self) -> list[list[str]]:
         return [["_" for _ in range(self._board_size)] for _ in range(self._board_size)]
 
-    def _populate_board(self) -> List[List[str]]:
+    def _populate_board(self) -> list[list[str]]:
         board = copy.deepcopy(self._empty_board)
         for piece  in self.pieces:
             board[piece.coordinate.rank_index()][piece.coordinate.file_index()] = piece.emoji

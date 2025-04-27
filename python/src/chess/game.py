@@ -1,20 +1,19 @@
 from logging import Logger
-from typing import Optional
 
 from chess.board import ChessBoard
-from chess.move import toss_coin, roll_dice
-from chess.pieces import Bishop, Rook, ChessPiece
+from chess.move import roll_dice, toss_coin
+from chess.pieces import Bishop, ChessPiece, Rook
 
 
 class Game:
-    def __init__(self, rook: Rook, bishop: Bishop, logger: Logger, board_size: int = 8):
+    def __init__(self, rook: Rook, bishop: Bishop, logger: Logger, board_size: int = 8) -> None:
         self.rook = rook
         self.bishop = bishop
         self.logger = logger
         self.board_size = board_size
         self.board = ChessBoard(pieces=[rook, bishop], board_size=self.board_size, logger=self.logger)
 
-    def play_turn(self) -> Optional[ChessPiece]:
+    def play_turn(self) -> ChessPiece | None:
         # if the rook can capture the bishop it does and wins the game, if not then move the rook
         if self.rook.can_capture(self.bishop.coordinate):
             self.logger.info(f"The rook on {self.rook.coordinate} can capture the bishop on {self.bishop.coordinate}.")

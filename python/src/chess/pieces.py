@@ -10,7 +10,7 @@ def get_available_files(board_size: int) -> list:
     return [chr(i).upper() for i in range(ord('a'), ord('a') + board_size)]
 
 class Coordinate:
-    def __init__(self, file: str, rank: int, board_size: int = 8):
+    def __init__(self, file: str, rank: int, board_size: int = 8) -> None:
         self.board_size = board_size
         self.available_files = get_available_files(board_size)
         self.file = file.upper()
@@ -33,7 +33,7 @@ class Coordinate:
         rank = board_size - rank_index
         return cls(file, rank, board_size=board_size)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.file}{self.rank}"
 
     def __eq__(self, other):
@@ -56,33 +56,30 @@ class PieceColor(Enum):
 
 class ChessPiece(ABC):
 
-    def __init__(self, coordinate: Coordinate, color: PieceColor):
+    def __init__(self, coordinate: Coordinate, color: PieceColor) -> None:
         self.color = color
         self.coordinate: Coordinate = coordinate
 
     @property
     @abstractmethod
     def name(self) -> str:
-        """Name of the chess piece"""
-        pass
+        """Name of the chess piece."""
 
     @property
     @abstractmethod
     def emoji(self) -> str:
-        """Emoji of the chess piece"""
-        pass
+        """Emoji of the chess piece."""
 
     @abstractmethod
     def can_capture(self, target_coordinate: Coordinate) -> bool:
-        """Returns True if the piece (self) can capture the target coordinate"""
-        pass
+        """Returns True if the piece (self) can capture the target coordinate."""
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.color.value} {self.name}"
 
 
 class Rook(ChessPiece):
-    def __init__(self, coordinate: Coordinate, color: PieceColor):
+    def __init__(self, coordinate: Coordinate, color: PieceColor) -> None:
         super().__init__(coordinate, color)
 
     @property
@@ -113,7 +110,7 @@ class Rook(ChessPiece):
 
 
 class Bishop(ChessPiece):
-    def __init__(self, coordinate: Coordinate, color: PieceColor):
+    def __init__(self, coordinate: Coordinate, color: PieceColor) -> None:
         super().__init__(coordinate, color)
 
     @property

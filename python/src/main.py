@@ -1,8 +1,8 @@
 import logging
+from logging import getLogger
 
 from chess.game import Game
-from chess.pieces import Rook, Bishop, Coordinate, PieceColor
-from logging import getLogger, Logger
+from chess.pieces import Bishop, Coordinate, PieceColor, Rook
 
 logging.basicConfig(
     level=logging.INFO,
