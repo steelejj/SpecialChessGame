@@ -14,7 +14,7 @@ class ChessBoard:
 
     def validate(self):
         coordinates = [piece.coordinate for piece in self.pieces]
-        # print(coordinates)
+
         if len(set(coordinates)) != len(coordinates):
             raise ValueError(f"input coordinates must be unique, make sure all pieces start at different positions")
 

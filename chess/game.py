@@ -22,10 +22,10 @@ class Game:
         self.rook.move(direction=rook_direction, spaces=rook_move_spaces, board_size=self.board_size)
         self.logger.info(f"Rook on {current_position} moved {rook_direction.value} {rook_move_spaces} spaces to {self.rook.coordinate}")
         if self.bishop.can_capture(self.rook.coordinate):
-            self.logger.info(f"The bishop on {self.bishop.coordinate} can capture the rook on {self.rook.coordinate} and wins the game")
+            self.logger.info(f"The bishop on {self.bishop.coordinate} can capture the rook on {self.rook.coordinate}.")
             self.winner = self.bishop
         elif self.rook.can_capture(self.bishop.coordinate):
-            self.logger.info(f"The rook on {self.rook.coordinate} can capture the bishop on {self.bishop.coordinate} and wins the game")
+            self.logger.info(f"The rook on {self.rook.coordinate} can capture the bishop on {self.bishop.coordinate}.")
             self.winner = self.rook
         else:
             self.logger.info(f"The rook on {self.rook.coordinate} and the bishop on {self.bishop.coordinate} cannot capture each other")
@@ -40,8 +40,7 @@ class Game:
             self.board.render()
             current_turn += 1
 
-        self.winner = self.rook
-        self.logger.info(f"The winner is {self.winner}")
+        return self.rook if not self.winner else self.winner, current_turn
 
 
 

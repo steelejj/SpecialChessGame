@@ -17,4 +17,6 @@ if __name__ == "__main__":
     number_of_turns = 15
 
     game = Game(rook=rook, bishop=bishop, logger=game_logger)
-    game.play_game(number_of_turns=number_of_turns)
+    result, number_of_turns = game.play_game(number_of_turns=number_of_turns)
+
+    game_logger.info(f"The {result} wins in {number_of_turns} turns")

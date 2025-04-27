@@ -105,24 +105,16 @@ class Rook(ChessPiece):
         return self.coordinate.file == target_coordinate.file or self.coordinate.rank == target_coordinate.rank
 
     def move(self, direction: MoveDirection, spaces: int, board_size: int) -> None:
-        print("current coordinate", self.coordinate)
-        print("direction", direction)
-        print("spaces", spaces)
-        if direction == MoveDirection.UP:
-            new_rank = self.coordinate.rank + spaces
-            if new_rank > board_size:
-                new_rank = new_rank - board_size
-            self.coordinate.rank = new_rank
-        elif direction == MoveDirection.RIGHT:
-            new_file_index = self.coordinate.file_index() + spaces
-            print("printing new file index")
-            print(new_file_index)
-            if new_file_index > (board_size - 1):
-                print("printing what I think it should become")
-                print(new_file_index - board_size - 1)
-                new_file_index = new_file_index - board_size - 1
-            self.coordinate = Coordinate.from_indexes(new_file_index, self.coordinate.rank_index(), board_size)
+        file_idx = self.coordinate.file_index()
+        rank_idx = self.coordinate.rank_index()
 
+        if direction == MoveDirection.UP:
+            new_rank_idx = (rank_idx - spaces) % board_size
+            self.coordinate = Coordinate.from_indexes(file_idx, new_rank_idx, board_size)
+
+        elif direction == MoveDirection.RIGHT:
+            new_file_idx = (file_idx + spaces) % board_size
+            self.coordinate = Coordinate.from_indexes(new_file_idx, rank_idx, board_size)
 
 
 class Bishop(ChessPiece):
