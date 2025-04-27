@@ -4,10 +4,10 @@ from enum import Enum
 from chess.move import MoveDirection
 
 
-def get_available_files(n: int) -> list:
-    if not (1 <= n <= 26):
+def get_available_files(board_size: int) -> list:
+    if not (1 <= board_size <= 26):
         raise ValueError("n must be between 1 and 26, inclusive.")
-    return [chr(i).upper() for i in range(ord('a'), ord('a') + n)]
+    return [chr(i).upper() for i in range(ord('a'), ord('a') + board_size)]
 
 class Coordinate:
     def __init__(self, file: str, rank: int, board_size: int = 8):
@@ -128,6 +128,6 @@ class Bishop(ChessPiece):
             return "\u265D"
 
     def can_capture(self, target_coordinate: Coordinate) -> bool:
-        return abs(self.coordinate.file_index() - target_coordinate.file_index()) == abs(self.coordinate.rank - target_coordinate.rank)
+        return abs(self.coordinate.file_index() - target_coordinate.file_index()) == abs(self.coordinate.rank_index() - target_coordinate.rank_index())
 
 

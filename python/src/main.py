@@ -13,7 +13,7 @@ logging.basicConfig(
 if __name__ == "__main__":
     game_logger = getLogger("ChessGame")
     rook = Rook(coordinate=Coordinate("H", 1), color=PieceColor.WHITE)
-    bishop = Bishop(coordinate=Coordinate("c", 3), color=PieceColor.BLACK)
+    bishop = Bishop(coordinate=Coordinate("C", 3), color=PieceColor.BLACK)
     number_of_turns = 15
 
     game = Game(rook=rook, bishop=bishop, logger=game_logger)
