@@ -1,6 +1,6 @@
 import logging
 from game.board import ChessBoard
-from game.pieces import Rook, Bishop, Coordinate
+from game.pieces import Rook, Bishop, Coordinate, PieceColor
 from logging import getLogger, Logger
 
 logging.basicConfig(
@@ -10,12 +10,15 @@ logging.basicConfig(
 )
 
 def play_game(logger: Logger):
-    logger.info("starting game")            # <-- now this will show
+    logger.info("starting game")
+
     pieces = [
-        Rook(Coordinate('g',8)),
-        Bishop(Coordinate('b',7))
+        Rook(color=PieceColor.BLACK, coordinate=Coordinate("A", 2)),
+        Bishop(color=PieceColor.WHITE, coordinate=Coordinate("G", 8))
     ]
-    board = ChessBoard(pieces, logger=logger)
+
+    board = ChessBoard(pieces=pieces, board_size=8, logger=logger)
+
     board.render()
 
 if __name__ == "__main__":

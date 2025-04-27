@@ -1,28 +1,31 @@
+import copy
 from functools import cached_property
 from logging import Logger
-from typing import List
-from game.pieces import ChessPiece
+from typing import List, Dict
+from game.pieces import ChessPiece, Coordinate
 
-class ChessBoardBuilder:
-    def __init__(self, board: List[List[ChessPiece]]):
 
 class ChessBoard:
-    def __init__(self, pieces: List[ChessPiece], logger: Logger, board_size: int = 8) -> None:
-        self._board_size = board_size  # Use board_size parameter
+    def __init__(self, pieces: List[ChessPiece], board_size: int, logger: Logger) -> None:
+        self.pieces: List[ChessPiece] = pieces
+        self._board_size = board_size
+        self.logger = logger
+        self.validate()
 
-        # self.pieces = pieces
-        # self.logger = logger
-        # self.board_state: List[List[str]] = self._init_board_state()
+    def validate(self):
+        coordinates = [piece.coordinate for piece in self.pieces]
+        # print(coordinates)
+        if len(set(coordinates)) != len(coordinates):
+            raise ValueError(f"input coordinates must be unique, make sure all pieces start at different positions")
 
-    def get_board_state(self) -> List[List[str]]:
 
-
+    @cached_property
     def _empty_board(self) -> List[List[str]]:
         return [["_" for _ in range(self._board_size)] for _ in range(self._board_size)]
 
-    def _init_board_state(self) -> list[list[str]]:
-        board = self._empty_board()
-        for piece in self.pieces:
+    def _populate_board(self) -> List[List[str]]:
+        board = copy.deepcopy(self._empty_board)
+        for piece  in self.pieces:
             board[piece.coordinate.rank_index()][piece.coordinate.file_index()] = piece.emoji
 
         return board
@@ -31,7 +34,7 @@ class ChessBoard:
         self.logger.info("Rendering the current state of board")
 
         formatted = ""
-        for row in self.board_state:
+        for row in self._populate_board():
             formatted += "  ".join(row) + "\n"
 
         self.logger.info("\n" + formatted)
