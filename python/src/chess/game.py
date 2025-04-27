@@ -38,7 +38,8 @@ class Game:
             self.logger.info(f"Playing turn {current_turn}")
             self.play_turn()
             self.board.render()
-            current_turn += 1
+            if not self.winner:
+                current_turn += 1
 
         return self.rook if not self.winner else self.winner, current_turn
 
