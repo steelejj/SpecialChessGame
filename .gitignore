@@ -1,3 +1,19 @@
 # standard gitignore for .idea and python project
 .idea
 .venv
+**.pyc
+
+# ignore compiled Python files
+**/*.py[cod]
+
+# Cython debug symbols
+cython_debug/
+
+# pytest cache
+.pytest_cache/
+
+# coverage reports
+htmlcov/
+.coverage
+.coverage.*
+
