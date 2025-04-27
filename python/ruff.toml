@@ -24,3 +24,7 @@ exclude = ["build", "dist", ".venv", "__pycache__", "*.pyc"]
 
 # allow unused imports in __init__.py for namespace packages
 per-file-ignores = { "__init__.py" = ["F401"] }
+
+[lint.pydocstyle]
+# Use Google-style docstrings.
+convention = "google"

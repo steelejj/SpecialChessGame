@@ -19,7 +19,7 @@ lint() {
     -v "$(pwd)":/app \
     -w /app \
     "$IMAGE" \
-    ruff --fix python/src
+    ruff check --fix python/src
 }
 
 type_check() {

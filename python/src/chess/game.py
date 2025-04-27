@@ -6,9 +6,11 @@ from chess.pieces import Bishop, ChessPiece, Rook
 
 
 class Game:
-    """Manages a chess game between a rook and a bishop.
+    """
+    Manages a chess game between a rook and a bishop.
 
     Attributes:
+    ----------
         rook (Rook): The rook piece.
         bishop (Bishop): The bishop piece.
         logger (Logger): Logger for game events.
@@ -17,9 +19,11 @@ class Game:
     """
 
     def __init__(self, rook: Rook, bishop: Bishop, logger: Logger, board_size: int = 8) -> None:
-        """Initialize the game with a rook, bishop, logger, and board size.
+        """
+        Initialize the game with a rook, bishop, logger, and board size.
 
         Args:
+        ----
             rook (Rook): The rook piece.
             bishop (Bishop): The bishop piece.
             logger (Logger): Logger for game events.
@@ -32,12 +36,14 @@ class Game:
         self.board = ChessBoard(pieces=[rook, bishop], board_size=self.board_size, logger=self.logger)
 
     def play_turn(self) -> ChessPiece | None:
-        """Execute a single turn for both pieces.
+        """
+        Execute a single turn for both pieces.
 
         The rook attempts to capture the bishop first; if it fails, it moves based on
         a coin toss and two dice rolls. Then the bishop attempts to capture the rook.
 
         Returns:
+        -------
             ChessPiece | None: The piece that captured its opponent this turn,
             or None if no capture occurred.
         """
@@ -62,14 +68,17 @@ class Game:
             return None
 
     def play_game(self, number_of_turns: int):
-        """Play the game up to a maximum number of turns.
+        """
+        Play the game up to a maximum number of turns.
 
         Logs each turn, renders the board, and stops early if a capture occurs.
 
         Args:
+        ----
             number_of_turns (int): Maximum number of turns to play.
 
         Returns:
+        -------
             tuple[ChessPiece, int]: A tuple containing the winning piece (or the rook by default
             if no capture occurred) and the turn count at which the game ended.
         """
