@@ -57,7 +57,7 @@ class Game:
             current_position = self.rook.coordinate
             self.logger.info(f"The rook on {current_position} cannot capture the bishop on {self.bishop.coordinate}.")
             self.rook.move(direction=rook_direction, spaces=rook_move_spaces, board_size=self.board_size)
-            self.logger.info(f"Rook on {current_position} moved {rook_direction.value} {rook_move_spaces} spaces to {self.rook.coordinate}")
+            self.logger.info(f"Rook on {current_position} moves {rook_direction.value} {rook_move_spaces} spaces to {self.rook.coordinate}")
 
         # if the bishop can capture the rook after it moves it wins the game
         if self.bishop.can_capture(self.rook.coordinate):
