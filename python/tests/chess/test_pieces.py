@@ -1,8 +1,4 @@
-# tests/test_pieces.py
-
 import pytest
-from enum import Enum
-
 from chess.pieces import (
     get_available_files,
     Coordinate,
