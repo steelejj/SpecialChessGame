@@ -44,7 +44,7 @@ def test_play_turn_rook_captures_first(
     rook.can_capture.return_value = True
 
     game = Game(rook=rook, bishop=bishop, logger=logger)
-    result = game.play_turn()
+    result = game._play_turn()
 
     assert result is rook
     rook.can_capture.assert_called_once_with(bishop.coordinate)
@@ -73,7 +73,7 @@ def test_play_turn_bishop_captures_after_move(
     mock_roll.side_effect = [2, 3]
 
     game = Game(rook=rook, bishop=bishop, logger=logger)
-    result = game.play_turn()
+    result = game._play_turn()
 
     assert result is bishop
     mock_toss.assert_called_once()
@@ -104,7 +104,7 @@ def test_play_turn_no_capture(
     mock_roll.side_effect = [1, 1]
 
     game = Game(rook=rook, bishop=bishop, logger=logger)
-    result = game.play_turn()
+    result = game._play_turn()
 
     assert result is None
     rook.move.assert_called_once_with(
@@ -127,7 +127,7 @@ def test_play_game_stops_on_capture(
     mock_board_cls.return_value = board_instance
 
     game = Game(rook=rook, bishop=bishop, logger=logger)
-    game.play_turn = MagicMock(side_effect=[None, None, rook])
+    game._play_turn = MagicMock(side_effect=[None, None, rook])
 
     winner, turns = game.play_game(number_of_turns=5)
 

@@ -38,9 +38,9 @@ class ChessBoard:
         self.pieces: list[ChessPiece] = pieces
         self._board_size = board_size
         self.logger = logger
-        self.validate()
+        self._validate()
 
-    def validate(self) -> None:
+    def _validate(self) -> None:
         """
         Ensure all pieces occupy unique coordinates.
 

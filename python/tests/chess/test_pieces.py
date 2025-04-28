@@ -114,9 +114,7 @@ def test_bishop_capture(start, target, expected) -> None:
 
 
 def test_dummy_piece_str_and_capture(dummy_piece_class) -> None:
-    """Reuse the shared DummyPiece fixture instead of redefining it here."""
     coord = Coordinate("D", 4, board_size=8)
-    # override emoji and can_capture behavior to match previous expectations
     p = dummy_piece_class(coord, PieceColor.BLACK, emoji="X", can_capture_result=True)
     assert str(p) == "Black Dummy"
     assert p.can_capture(Coordinate("E", 5, board_size=8))

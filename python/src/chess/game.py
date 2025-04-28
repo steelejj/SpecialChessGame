@@ -46,7 +46,7 @@ class Game:
             logger=self.logger,
         )
 
-    def play_turn(self) -> ChessPiece | None:
+    def _play_turn(self) -> ChessPiece | None:
         """
         Execute a single turn for both pieces.
 
@@ -115,7 +115,7 @@ class Game:
 
         while not maybe_winner and current_turn <= number_of_turns:
             self.logger.info(f"Playing turn {current_turn}")
-            maybe_winner = self.play_turn()
+            maybe_winner = self._play_turn()
             self.board.render()
             if not maybe_winner:
                 current_turn += 1
