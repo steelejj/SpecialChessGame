@@ -17,7 +17,7 @@ This is a special chess game between a bishop and a rook. The game flows as foll
 ### Building the app
 Required prior to running
 ```bash
-ci.sh build
+./ci.sh build
 ```
 
 ### Running the app
@@ -38,11 +38,12 @@ These will autofix when available
 
 
 ## Assumptions / Decisions
+- The game contains a single board, single rook, and single bishop
+- One turn consists of the rook trying to capture, moving based on random inputs, and the bishop trying to capture
+- The rook always and only tries to capture at the beginning of the turn
+- The bishop always and only tries to capture at the end of the turn
 - The board does not have to maintain any state, all state is contained within the pieces
-- The rook always tries to capture at the beginning of its turn
-- The bishop always tries to capture at the end of its turn
-- A turn consists of the rook trying to capture, moving, and the bishop trying to capture
 - The rook wins by default after 15 turns
 - The rook can only move up or to the right
-- The bishop never has to move
+- The bishop never has to move, it only "captures" if the rook falls along one of its diagonals
 - There are no additional pieces on the board
