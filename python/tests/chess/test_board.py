@@ -3,6 +3,7 @@ import logging
 from chess.board import ChessBoard
 from chess.pieces import Coordinate, PieceColor
 
+
 def test_validate_raises_for_duplicate_coordinates(dummy_piece_class, logger) -> None:
     """Ensure validate() raises when two pieces share the same coordinate."""
     coord = Coordinate("A", 1)
@@ -52,7 +53,9 @@ def test_render_logs_board(create_piece_at_index, caplog, logger) -> None:
 
     board.render()
 
-    assert any("Rendering the current state of board" in rec.message for rec in caplog.records)
+    assert any(
+        "Rendering the current state of board" in rec.message for rec in caplog.records
+    )
 
     expected = "\nD  _\n_  D\n"
     assert any(rec.message.strip() == expected.strip() for rec in caplog.records)
