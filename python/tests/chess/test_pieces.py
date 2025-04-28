@@ -33,11 +33,14 @@ def test_coordinate_init_and_str() -> None:
     assert str(coord) == "A1"
 
 
-@pytest.mark.parametrize("file,rank", [
-    ("?", 1),
-    ("A", 0),
-    ("A", 9),
-])
+@pytest.mark.parametrize(
+    "file,rank",
+    [
+        ("?", 1),
+        ("A", 0),
+        ("A", 9),
+    ],
+)
 def test_coordinate_invalid_file_or_rank(file: str, rank: int) -> None:
     """Coordinate __init__ should reject invalid file letters or rank numbers."""
     with pytest.raises(ValueError):
@@ -52,7 +55,7 @@ def test_coordinate_from_indexes_valid() -> None:
     assert str(c2) == "H8"
 
 
-@pytest.mark.parametrize("fi,ri", [(-1,0), (0,-1), (8,0), (0,8)])
+@pytest.mark.parametrize("fi,ri", [(-1, 0), (0, -1), (8, 0), (0, 8)])
 def test_coordinate_from_indexes_invalid(fi: int, ri: int) -> None:
     """from_indexes should reject indexes outside [0, board_size)."""
     with pytest.raises(ValueError):

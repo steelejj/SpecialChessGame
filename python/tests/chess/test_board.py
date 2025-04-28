@@ -23,9 +23,7 @@ class DummyPiece(ChessPiece):
 
 
 def create_piece_at_index(
-    file_idx: int,
-    rank_idx: int,
-    board_size: int = 3
+    file_idx: int, rank_idx: int, board_size: int = 3
 ) -> DummyPiece:
     """Helper: build a DummyPiece at zero-based indexes on an N×N board."""
     coord = Coordinate.from_indexes(file_idx, rank_idx, board_size)
@@ -84,7 +82,9 @@ def test_render_logs_board(caplog) -> None:
     board.render()
 
     # Check that the rendering message appears
-    assert any("Rendering the current state of board" in rec.message for rec in caplog.records)
+    assert any(
+        "Rendering the current state of board" in rec.message for rec in caplog.records
+    )
 
     # Check that the grid was logged (two spaces between cells)
     expected = "\nD  _\n_  D\n"

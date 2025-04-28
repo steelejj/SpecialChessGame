@@ -47,9 +47,9 @@ def bishop() -> MagicMock:
     return b
 
 
-@patch('chess.game.ChessBoard')
-@patch('chess.game.roll_dice')
-@patch('chess.game.toss_coin')
+@patch("chess.game.ChessBoard")
+@patch("chess.game.roll_dice")
+@patch("chess.game.toss_coin")
 def test_play_turn_rook_captures_first(
     mock_toss: MagicMock,
     mock_roll: MagicMock,
@@ -74,9 +74,9 @@ def test_play_turn_rook_captures_first(
     rook.move.assert_not_called()
 
 
-@patch('chess.game.ChessBoard')
-@patch('chess.game.roll_dice')
-@patch('chess.game.toss_coin')
+@patch("chess.game.ChessBoard")
+@patch("chess.game.roll_dice")
+@patch("chess.game.toss_coin")
 def test_play_turn_bishop_captures_after_move(
     mock_toss: MagicMock,
     mock_roll: MagicMock,
@@ -99,16 +99,18 @@ def test_play_turn_bishop_captures_after_move(
     assert result is bishop
     mock_toss.assert_called_once()
     assert mock_roll.call_count == 2
-    rook.move.assert_called_once_with(direction=MoveDirection.UP, spaces=5, board_size=8)
+    rook.move.assert_called_once_with(
+        direction=MoveDirection.UP, spaces=5, board_size=8
+    )
     bishop.can_capture.assert_called_once_with(rook.coordinate)
     logger.info.assert_any_call(
         f"The bishop on {bishop.coordinate} can capture the rook on {rook.coordinate}."
     )
 
 
-@patch('chess.game.ChessBoard')
-@patch('chess.game.roll_dice')
-@patch('chess.game.toss_coin')
+@patch("chess.game.ChessBoard")
+@patch("chess.game.roll_dice")
+@patch("chess.game.toss_coin")
 def test_play_turn_no_capture(
     mock_toss: MagicMock,
     mock_roll: MagicMock,
@@ -129,14 +131,16 @@ def test_play_turn_no_capture(
     result = game.play_turn()
 
     assert result is None
-    rook.move.assert_called_once_with(direction=MoveDirection.RIGHT, spaces=2, board_size=8)
+    rook.move.assert_called_once_with(
+        direction=MoveDirection.RIGHT, spaces=2, board_size=8
+    )
     bishop.can_capture.assert_called_once_with(rook.coordinate)
     logger.info.assert_any_call(
         f"The bishop on {bishop.coordinate} cannot capture the rook on {rook.coordinate}."
     )
 
 
-@patch('chess.game.ChessBoard')
+@patch("chess.game.ChessBoard")
 def test_play_game_stops_on_capture(
     mock_board_cls: MagicMock,
     rook: MagicMock,
