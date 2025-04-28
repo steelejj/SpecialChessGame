@@ -4,14 +4,14 @@ from enum import Enum
 from chess.move import MoveDirection
 
 
-def get_available_files(board_size: int) -> list:
+def get_available_files(board_size: int) -> list[str]:
     """Generate a list of file letters for a chessboard.
 
     Args:
         board_size (int): Number of files (columns), between 1 and 26 inclusive.
 
     Returns:
-        list: Uppercase letters from 'A' up to the given board size.
+        list[str]: Uppercase letters from 'A' up to the given board size.
 
     Raises:
         ValueError: If `board_size` is not between 1 and 26 (letters in the alphabet).
@@ -26,7 +26,7 @@ class Coordinate:
 
     Attributes:
         board_size (int): Size of the board (number of ranks/files).
-        available_files (list): Valid file letters for this board size.
+        available_files (list[str]): Valid file letters for this board size.
         file (str): The file letter (e.g., 'A').
         rank (int): The rank number (1-based).
     """
@@ -57,7 +57,12 @@ class Coordinate:
             )
 
     @classmethod
-    def from_indexes(cls, file_index: int, rank_index: int, board_size: int = 8):
+    def from_indexes(
+        cls,
+        file_index: int,
+        rank_index: int,
+        board_size: int = 8,
+    ) -> "Coordinate":
         """Create a Coordinate from zero-based file and rank indexes.
 
         Args:
@@ -93,14 +98,14 @@ class Coordinate:
         """
         return f"{self.file}{self.rank}"
 
-    def __eq__(self, other):
+    def __eq__(self, other: object) -> bool:
         """Check equality of two Coordinates.
 
         Args:
-            other (Coordinate): Another Coordinate to compare.
+            other (object): Another object to compare.
 
         Returns:
-            bool: True if file, rank, and board_size are all equal.
+            bool: True if other is a Coordinate with the same file, rank, and board_size.
         """
         if not isinstance(other, Coordinate):
             return NotImplemented
@@ -110,16 +115,28 @@ class Coordinate:
             other.board_size,
         )
 
-    def __hash__(self):
-        """Compute a hash based on file, rank, and board_size."""
+    def __hash__(self) -> int:
+        """Compute a hash based on file, rank, and board_size.
+
+        Returns:
+            int: Hash value.
+        """
         return hash((self.file, self.rank, self.board_size))
 
-    def file_index(self):
-        """Get zero-based index of the file."""
+    def file_index(self) -> int:
+        """Get zero-based index of the file.
+
+        Returns:
+            int: Index of `self.file` in available_files.
+        """
         return self.available_files.index(self.file)
 
-    def rank_index(self):
-        """Get zero-based index of the rank."""
+    def rank_index(self) -> int:
+        """Get zero-based index of the rank.
+
+        Returns:
+            int: `board_size - self.rank`.
+        """
         return self.board_size - self.rank
 
 
@@ -170,7 +187,11 @@ class ChessPiece(ABC):
         """
 
     def __str__(self) -> str:
-        """Return a readable name of the piece, including its color."""
+        """Return a readable name of the piece, including its color.
+
+        Returns:
+            str: Color and piece name (e.g., 'White Rook').
+        """
         return f"{self.color.value} {self.name}"
 
 
