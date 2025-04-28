@@ -49,11 +49,11 @@ class Coordinate:
 
         if self.file not in self.available_files:
             raise ValueError(
-                f"file: {file} must be between a and {self.available_files[-1]}, inclusive."
+                f"file: {file} must be between a and {self.available_files[-1]}, inclusive.",
             )
         if self.rank < 1 or rank > board_size:
             raise ValueError(
-                f"rank: {rank} must be between 1 and {board_size}, inclusive."
+                f"rank: {rank} must be between 1 and {board_size}, inclusive.",
             )
 
     @classmethod
@@ -74,11 +74,11 @@ class Coordinate:
         files = get_available_files(board_size)
         if not (0 <= file_index < board_size):
             raise ValueError(
-                f"file_index: {file_index} must be between 0 and {board_size-1}"
+                f"file_index: {file_index} must be between 0 and {board_size-1}",
             )
         if not (0 <= rank_index < board_size):
             raise ValueError(
-                f"rank_index: {rank_index} must be between 0 and {board_size-1}"
+                f"rank_index: {rank_index} must be between 0 and {board_size-1}",
             )
 
         file = files[file_index]

@@ -17,6 +17,7 @@ ignore = [
     "D203", # no blank line before class
     "D212",
     "E501", # line length
+    "S311", # random numbers
 ]
 
 # dirs and file-patterns to skip
