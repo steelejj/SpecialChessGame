@@ -3,26 +3,8 @@ from unittest.mock import MagicMock, patch
 from logging import Logger
 
 from chess.game import Game
-from chess.pieces import ChessPiece, Rook, Bishop
+from chess.pieces import Rook, Bishop
 from chess.move import MoveDirection
-
-
-class DummyPiece(ChessPiece):
-    """Concrete stub for ChessPiece to facilitate Game testing."""
-
-    def __init__(self, coordinate, color):
-        super().__init__(coordinate, color)
-
-    @property
-    def name(self) -> str:
-        return "Dummy"
-
-    @property
-    def emoji(self) -> str:
-        return "?"
-
-    def can_capture(self, target_coordinate) -> bool:
-        return False
 
 
 @pytest.fixture
@@ -85,9 +67,6 @@ def test_play_turn_bishop_captures_after_move(
     bishop: MagicMock,
     logger: MagicMock,
 ) -> None:
-    """
-    If rook cannot capture but bishop can after rook moves, play_turn returns bishop.
-    """
     rook.can_capture.return_value = False
     bishop.can_capture.return_value = True
     mock_toss.return_value = MoveDirection.UP
@@ -119,9 +98,6 @@ def test_play_turn_no_capture(
     bishop: MagicMock,
     logger: MagicMock,
 ) -> None:
-    """
-    If neither rook nor bishop can capture, play_turn returns None.
-    """
     rook.can_capture.return_value = False
     bishop.can_capture.return_value = False
     mock_toss.return_value = MoveDirection.RIGHT
@@ -147,20 +123,15 @@ def test_play_game_stops_on_capture(
     bishop: MagicMock,
     logger: MagicMock,
 ) -> None:
-    """
-    play_game should render the board each turn and stop when a capture occurs.
-    """
-    # Replace ChessBoard instance so we can verify render calls
     board_instance = MagicMock()
     mock_board_cls.return_value = board_instance
 
     game = Game(rook=rook, bishop=bishop, logger=logger)
-    # Stub play_turn to simulate two misses then a win
     game.play_turn = MagicMock(side_effect=[None, None, rook])
 
     winner, turns = game.play_game(number_of_turns=5)
 
     assert winner is rook
     assert turns == 3
-    # One initial render + one per iteration
+    # initial render + one per turn
     assert board_instance.render.call_count == 4
