@@ -1,4 +1,5 @@
 from logging import Logger
+from typing import Optional
 
 from chess.board import ChessBoard
 from chess.move import roll_dice, toss_coin
@@ -91,7 +92,7 @@ class Game:
             )
             return None
 
-    def play_game(self, number_of_turns: int):
+    def play_game(self, number_of_turns: int) -> tuple[ChessPiece, int]:
         """
         Play the game up to a maximum number of turns.
 
@@ -110,7 +111,7 @@ class Game:
         current_turn = 1
         self.board.render()
 
-        maybe_winner = None
+        maybe_winner: Optional[ChessPiece] = None
 
         while not maybe_winner and current_turn <= number_of_turns:
             self.logger.info(f"Playing turn {current_turn}")
