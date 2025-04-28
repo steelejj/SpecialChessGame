@@ -40,7 +40,7 @@ class ChessBoard:
         self.logger = logger
         self.validate()
 
-    def validate(self):
+    def validate(self) -> None:
         """
         Ensure all pieces occupy unique coordinates.
 
