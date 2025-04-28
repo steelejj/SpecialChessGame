@@ -42,11 +42,21 @@ type_check() {
 }
 
 check() {
-  echo "✅ Running full check (ruff + type_check)…"
+  echo "✅ Running full check (ruff + black + type_check)…"
   black
   ruff
   type_check
   echo "🎉 All checks passed!"
+}
+
+test() {
+  echo "🧩 Running pytest…"
+  docker run --rm \
+    -v "$(pwd)":/app \
+    -w /app \
+    -e PYTHONPATH=/app/python/src:"$PYTHONPATH" \
+    "$IMAGE" \
+    pytest
 }
 
 usage() {
@@ -64,5 +74,6 @@ case "$1" in
   black)       black      ;;
   type_check)  type_check ;;
   check)       check      ;;
+  test)        test       ;;
   *)            usage     ;;
 esac
