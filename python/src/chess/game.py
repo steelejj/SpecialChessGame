@@ -18,7 +18,13 @@ class Game:
         board (ChessBoard): The chessboard instance containing the pieces.
     """
 
-    def __init__(self, rook: Rook, bishop: Bishop, logger: Logger, board_size: int = 8) -> None:
+    def __init__(
+        self,
+        rook: Rook,
+        bishop: Bishop,
+        logger: Logger,
+        board_size: int = 8,
+    ) -> None:
         """
         Initialize the game with a rook, bishop, logger, and board size.
 
@@ -33,7 +39,11 @@ class Game:
         self.bishop = bishop
         self.logger = logger
         self.board_size = board_size
-        self.board = ChessBoard(pieces=[rook, bishop], board_size=self.board_size, logger=self.logger)
+        self.board = ChessBoard(
+            pieces=[rook, bishop],
+            board_size=self.board_size,
+            logger=self.logger,
+        )
 
     def play_turn(self) -> ChessPiece | None:
         """
@@ -49,22 +59,36 @@ class Game:
         """
         # if the rook can capture the bishop it does and wins the game, if not then move the rook
         if self.rook.can_capture(self.bishop.coordinate):
-            self.logger.info(f"The rook on {self.rook.coordinate} can capture the bishop on {self.bishop.coordinate}.")
+            self.logger.info(
+                f"The rook on {self.rook.coordinate} can capture the bishop on {self.bishop.coordinate}.",
+            )
             return self.rook
         else:
             rook_direction = toss_coin()
             rook_move_spaces = roll_dice() + roll_dice()
             current_position = self.rook.coordinate
-            self.logger.info(f"The rook on {current_position} cannot capture the bishop on {self.bishop.coordinate}.")
-            self.rook.move(direction=rook_direction, spaces=rook_move_spaces, board_size=self.board_size)
-            self.logger.info(f"Rook on {current_position} moves {rook_direction.value} {rook_move_spaces} spaces to {self.rook.coordinate}")
+            self.logger.info(
+                f"The rook on {current_position} cannot capture the bishop on {self.bishop.coordinate}.",
+            )
+            self.rook.move(
+                direction=rook_direction,
+                spaces=rook_move_spaces,
+                board_size=self.board_size,
+            )
+            self.logger.info(
+                f"Rook on {current_position} moves {rook_direction.value} {rook_move_spaces} spaces to {self.rook.coordinate}",
+            )
 
         # if the bishop can capture the rook after it moves it wins the game
         if self.bishop.can_capture(self.rook.coordinate):
-            self.logger.info(f"The bishop on {self.bishop.coordinate} can capture the rook on {self.rook.coordinate}.")
+            self.logger.info(
+                f"The bishop on {self.bishop.coordinate} can capture the rook on {self.rook.coordinate}.",
+            )
             return self.bishop
         else:
-            self.logger.info(f"The bishop on {self.bishop.coordinate} cannot capture the rook on {self.rook.coordinate}.")
+            self.logger.info(
+                f"The bishop on {self.bishop.coordinate} cannot capture the rook on {self.rook.coordinate}.",
+            )
             return None
 
     def play_game(self, number_of_turns: int):

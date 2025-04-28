@@ -18,7 +18,7 @@ def get_available_files(board_size: int) -> list:
     """
     if not (1 <= board_size <= 26):
         raise ValueError("n must be between 1 and 26, inclusive.")
-    return [chr(i).upper() for i in range(ord('a'), ord('a') + board_size)]
+    return [chr(i).upper() for i in range(ord("a"), ord("a") + board_size)]
 
 
 class Coordinate:
@@ -104,7 +104,11 @@ class Coordinate:
         """
         if not isinstance(other, Coordinate):
             return NotImplemented
-        return (self.file, self.rank, self.board_size) == (other.file, other.rank, other.board_size)
+        return (self.file, self.rank, self.board_size) == (
+            other.file,
+            other.rank,
+            other.board_size,
+        )
 
     def __hash__(self):
         """Compute a hash based on file, rank, and board_size."""
@@ -121,6 +125,7 @@ class Coordinate:
 
 class PieceColor(Enum):
     """Enumeration of chess piece colors."""
+
     WHITE = "White"
     BLACK = "Black"
 
@@ -192,7 +197,7 @@ class Rook(ChessPiece):
         if self.color == PieceColor.WHITE:
             return "\u2656"
         else:
-            return "\u265C"
+            return "\u265c"
 
     def can_capture(self, target_coordinate: Coordinate) -> bool:
         """Check if the rook can capture at the target coordinate.
@@ -203,7 +208,10 @@ class Rook(ChessPiece):
         Returns:
             bool: True if same file or same rank.
         """
-        return self.coordinate.file == target_coordinate.file or self.coordinate.rank == target_coordinate.rank
+        return (
+            self.coordinate.file == target_coordinate.file
+            or self.coordinate.rank == target_coordinate.rank
+        )
 
     def move(self, direction: MoveDirection, spaces: int, board_size: int) -> None:
         """Move the rook in a given direction by a number of spaces.
@@ -218,10 +226,18 @@ class Rook(ChessPiece):
 
         if direction == MoveDirection.UP:
             new_rank_idx = (rank_idx - spaces) % board_size
-            self.coordinate = Coordinate.from_indexes(file_idx, new_rank_idx, board_size)
+            self.coordinate = Coordinate.from_indexes(
+                file_idx,
+                new_rank_idx,
+                board_size,
+            )
         elif direction == MoveDirection.RIGHT:
             new_file_idx = (file_idx + spaces) % board_size
-            self.coordinate = Coordinate.from_indexes(new_file_idx, rank_idx, board_size)
+            self.coordinate = Coordinate.from_indexes(
+                new_file_idx,
+                rank_idx,
+                board_size,
+            )
 
 
 class Bishop(ChessPiece):
@@ -247,7 +263,7 @@ class Bishop(ChessPiece):
         if self.color == PieceColor.WHITE:
             return "\u2657"
         else:
-            return "\u265D"
+            return "\u265d"
 
     def can_capture(self, target_coordinate: Coordinate) -> bool:
         """Check if the bishop can capture at the target coordinate.
@@ -258,4 +274,6 @@ class Bishop(ChessPiece):
         Returns:
             bool: True if on the same diagonal.
         """
-        return abs(self.coordinate.file_index() - target_coordinate.file_index()) == abs(self.coordinate.rank_index() - target_coordinate.rank_index())
+        return abs(
+            self.coordinate.file_index() - target_coordinate.file_index(),
+        ) == abs(self.coordinate.rank_index() - target_coordinate.rank_index())

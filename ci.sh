@@ -13,13 +13,22 @@ run() {
   docker run --rm "$IMAGE"
 }
 
-lint() {
+ruff() {
   echo "🔍 Linting with Ruff inside container…"
   docker run --rm \
     -v "$(pwd)":/app \
     -w /app \
     "$IMAGE" \
     ruff check --fix python/src
+}
+
+black() {
+  echo "🔍 Formatting with Black inside container…"
+  docker run --rm \
+    -v "$(pwd)":/app \
+    -w /app \
+    "$IMAGE" \
+    black python
 }
 
 type_check() {
@@ -33,14 +42,15 @@ type_check() {
 }
 
 check() {
-  echo "✅ Running full check (lint + type_check)…"
-  lint
+  echo "✅ Running full check (ruff + type_check)…"
+  black
+  ruff
   type_check
   echo "🎉 All checks passed!"
 }
 
 usage() {
-  echo "Usage: $0 {build|run|lint|type_check|check}"
+  echo "Usage: $0 {build|run|ruff|type_check|check}"
   exit 1
 }
 
@@ -50,7 +60,8 @@ usage() {
 case "$1" in
   build)       build      ;;
   run)         run        ;;
-  lint)        lint       ;;
+  ruff)        ruff       ;;
+  black)       black      ;;
   type_check)  type_check ;;
   check)       check      ;;
   *)            usage     ;;
